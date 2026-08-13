@@ -72,7 +72,7 @@ button, input, select { font-family: inherit; }
   position: relative;
   margin-top: -40px;
   margin-bottom: 48px;
-  min-height: 620px;
+  min-height: 780px;
   display: flex;
   align-items: flex-end;
   overflow: hidden;
@@ -92,11 +92,18 @@ button, input, select { font-family: inherit; }
     radial-gradient(700px 400px at 50% 10%, rgba(168,116,255,.16), transparent 65%),
     linear-gradient(180deg, rgba(10,5,16,.1) 0%, rgba(10,5,16,.35) 45%, rgba(10,5,16,.88) 82%, var(--bg) 100%);
 }
+.hero-top-badge {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  text-align: center;
+}
 .hero-media-content {
   position: relative;
   z-index: 1;
   text-align: center;
-  padding-top: 64px;
   padding-bottom: 56px;
 }
 @media (max-width: 640px) {

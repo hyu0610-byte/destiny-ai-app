@@ -24,8 +24,10 @@ export default function HomePage() {
           <source src="/hero.mp4" type="video/mp4" />
         </video>
         <div className="hero-media-overlay" aria-hidden="true" />
-        <div className="container hero-media-content">
+        <div className="container hero-top-badge">
           <p className="badge hero-reveal" style={{ animationDelay: '.1s' }}>계산 엔진 + Mock 해석 기반 MVP</p>
+        </div>
+        <div className="container hero-media-content">
           <h1 className="hero-headline hero-reveal" style={{ animationDelay: '.28s' }}>
             운명이 당신을<br />이곳으로 이끌었습니다
           </h1>
