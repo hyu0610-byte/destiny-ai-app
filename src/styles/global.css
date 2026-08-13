@@ -116,6 +116,15 @@ button, input, select { font-family: inherit; }
 .card-selected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 .card-disabled { opacity: .5; cursor: not-allowed; }
 
+.mode-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 640px) {
+  .mode-grid { grid-template-columns: 1fr; }
+}
+
 /* ---------- Form ---------- */
 .field { margin-bottom: 18px; }
 .field label {

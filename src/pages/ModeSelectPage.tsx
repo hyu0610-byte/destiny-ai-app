@@ -67,7 +67,7 @@ export default function ModeSelectPage() {
 
       {error && <p className="error-text" role="alert" style={{ textAlign: 'center', marginBottom: 16 }}>{error}</p>}
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
+      <div className="mode-grid">
         {MODES.map((m) => {
           const disabled = m.requiresTime && input.timeUnknown;
           return (
