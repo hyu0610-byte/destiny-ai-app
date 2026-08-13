@@ -9,10 +9,10 @@ import { generateSajuReading } from '../lib/mockInterpretation';
 import { saveReading } from '../lib/history';
 import type { SajuMode } from '../lib/types';
 
-const MODES: { id: SajuMode; icon: string; name: string; tag: string; desc: string; requiresTime: boolean }[] = [
-  { id: 'traditional', icon: '🀄', name: '40년 전통 사주', tag: '전통 명리학 해석', desc: '깊은 연륜의 정통 사주풀이로 인생 전체 흐름을 짚어드립니다.', requiresTime: true },
-  { id: 'daily', icon: '📈', name: '오늘의 운세', tag: '현실 조언형', desc: '오늘 하루의 일·관계·선택에 바로 적용할 수 있는 실전형 조언을 전달합니다.', requiresTime: false },
-  { id: 'tarot', icon: '🔮', name: 'MZ 타로마스터', tag: '감각적인 타로 해석', desc: '트렌디한 톤앤매너로 풀어내는 타로 메시지를 확인해보세요.', requiresTime: false },
+const MODES: { id: SajuMode; image: string; name: string; tag: string; desc: string; requiresTime: boolean }[] = [
+  { id: 'traditional', image: '/masters/grandma.jpg', name: '40년 전통 사주', tag: '전통 명리학 해석', desc: '깊은 연륜의 정통 사주풀이로 인생 전체 흐름을 짚어드립니다.', requiresTime: true },
+  { id: 'daily', image: '/masters/officeguy.jpg', name: '오늘의 운세', tag: '현실 조언형', desc: '오늘 하루의 일·관계·선택에 바로 적용할 수 있는 실전형 조언을 전달합니다.', requiresTime: false },
+  { id: 'tarot', image: '/masters/tarot.jpg', name: 'MZ 타로마스터', tag: '감각적인 타로 해석', desc: '트렌디한 톤앤매너로 풀어내는 타로 메시지를 확인해보세요.', requiresTime: false },
 ];
 
 export default function ModeSelectPage() {
@@ -81,7 +81,11 @@ export default function ModeSelectPage() {
               aria-disabled={disabled}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleSelect(m.id, disabled); }}
             >
-              <div style={{ fontSize: '1.8rem', marginBottom: 8 }} aria-hidden="true">{m.icon}</div>
+              <img
+                src={m.image}
+                alt={`${m.name} 캐릭터 이미지`}
+                style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: 'var(--radius-sm)', marginBottom: 12 }}
+              />
               <span className="badge" style={{ marginBottom: 8 }}>{m.tag}</span>
               <h3 style={{ fontSize: '1.05rem' }}>{m.name}</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '.88rem', margin: 0 }}>{m.desc}</p>

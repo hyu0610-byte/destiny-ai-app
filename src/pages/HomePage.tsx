@@ -3,9 +3,9 @@ import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 
 const MODE_PREVIEW = [
-  { icon: '🀄', name: '40년 전통 사주', desc: '정통 명리학 해석으로 인생 전체 흐름을 짚어드립니다.' },
-  { icon: '📈', name: '오늘의 운세', desc: '오늘 하루 실전형 조언을 간결하게 전달합니다.' },
-  { icon: '🔮', name: 'MZ 타로마스터', desc: '감각적인 타로 메시지를 트렌디하게 해석합니다.' },
+  { image: '/masters/grandma.jpg', name: '40년 전통 사주', desc: '정통 명리학 해석으로 인생 전체 흐름을 짚어드립니다.' },
+  { image: '/masters/officeguy.jpg', name: '오늘의 운세', desc: '오늘 하루 실전형 조언을 간결하게 전달합니다.' },
+  { image: '/masters/tarot.jpg', name: 'MZ 타로마스터', desc: '감각적인 타로 메시지를 트렌디하게 해석합니다.' },
 ];
 
 export default function HomePage() {
@@ -33,7 +33,11 @@ export default function HomePage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
           {MODE_PREVIEW.map((m) => (
             <Card key={m.name}>
-              <div style={{ fontSize: '1.8rem', marginBottom: 8 }} aria-hidden="true">{m.icon}</div>
+              <img
+                src={m.image}
+                alt={`${m.name} 캐릭터 이미지`}
+                style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: 'var(--radius-sm)', marginBottom: 12 }}
+              />
               <h3 style={{ fontSize: '1.05rem' }}>{m.name}</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '.9rem', margin: 0 }}>{m.desc}</p>
             </Card>
