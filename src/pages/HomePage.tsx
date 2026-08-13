@@ -25,18 +25,11 @@ export default function HomePage() {
         </video>
         <div className="hero-media-overlay" aria-hidden="true" />
         <div className="container hero-media-content">
-          <p className="badge" style={{ marginBottom: 14 }}>계산 엔진 + Mock 해석 기반 MVP</p>
-          <h1 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.6rem)' }}>
-            같은 생년월일,<br />
-            <span style={{ background: 'var(--accent-grad)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>
-              정확하게 계산된 내 사주 8글자
-            </span>
+          <p className="badge hero-reveal" style={{ animationDelay: '.1s' }}>계산 엔진 + Mock 해석 기반 MVP</p>
+          <h1 className="hero-headline hero-reveal" style={{ animationDelay: '.28s' }}>
+            운명이 당신을<br />이곳으로 이끌었습니다
           </h1>
-          <p style={{ color: 'var(--text-muted)', maxWidth: 520, margin: '0 auto 28px' }}>
-            표준만세력 기반 계산 엔진이 사주 8글자를 먼저 산출하고, 원하는 해석 모드를 골라 결과를 확인해보세요.
-            입력한 정보와 결과는 이 브라우저에 안전하게 저장됩니다.
-          </p>
-          <Button onClick={() => navigate('/input')}>지금 내 사주 확인하기</Button>
+          <Button className="hero-reveal" style={{ animationDelay: '.5s' }} onClick={() => navigate('/input')}>운명 확인하기</Button>
         </div>
       </section>
 

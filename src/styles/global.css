@@ -72,9 +72,9 @@ button, input, select { font-family: inherit; }
   position: relative;
   margin-top: -40px;
   margin-bottom: 48px;
-  min-height: 480px;
+  min-height: 620px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   overflow: hidden;
   background: var(--bg);
 }
@@ -89,18 +89,38 @@ button, input, select { font-family: inherit; }
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(700px 400px at 50% 10%, rgba(168,116,255,.28), transparent 65%),
-    linear-gradient(180deg, rgba(10,5,16,.55) 0%, rgba(10,5,16,.75) 55%, var(--bg) 100%);
+    radial-gradient(700px 400px at 50% 10%, rgba(168,116,255,.16), transparent 65%),
+    linear-gradient(180deg, rgba(10,5,16,.1) 0%, rgba(10,5,16,.35) 45%, rgba(10,5,16,.88) 82%, var(--bg) 100%);
 }
 .hero-media-content {
   position: relative;
   z-index: 1;
   text-align: center;
   padding-top: 64px;
-  padding-bottom: 40px;
+  padding-bottom: 56px;
 }
 @media (max-width: 640px) {
-  .hero-media { min-height: 400px; }
+  .hero-media { min-height: 520px; }
+}
+
+.hero-headline {
+  font-size: clamp(2.1rem, 5.5vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -.01em;
+  margin: 18px 0 34px;
+  text-shadow: 0 0 40px rgba(168, 116, 255, .45);
+}
+
+.hero-reveal {
+  opacity: 0;
+  animation: hero-reveal-in .8s cubic-bezier(.16,.8,.3,1) forwards;
+}
+@keyframes hero-reveal-in {
+  from { opacity: 0; transform: translateY(18px); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-reveal { animation: none; opacity: 1; }
 }
 
 /* ---------- Buttons ---------- */
