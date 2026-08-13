@@ -68,6 +68,41 @@ button, input, select { font-family: inherit; }
   padding: 40px 0 80px;
 }
 
+.hero-media {
+  position: relative;
+  margin-top: -40px;
+  margin-bottom: 48px;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--bg);
+}
+.hero-media-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-media-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(700px 400px at 50% 10%, rgba(168,116,255,.28), transparent 65%),
+    linear-gradient(180deg, rgba(10,5,16,.55) 0%, rgba(10,5,16,.75) 55%, var(--bg) 100%);
+}
+.hero-media-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+@media (max-width: 640px) {
+  .hero-media { min-height: 400px; }
+}
+
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
