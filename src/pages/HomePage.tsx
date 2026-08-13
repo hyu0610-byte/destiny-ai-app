@@ -37,7 +37,7 @@ export default function HomePage() {
 
       <div className="container">
       <section style={{ padding: '24px 0 56px' }}>
-        <h2 style={{ textAlign: 'center', fontSize: '1.3rem', marginBottom: 24 }}>3가지 해석 모드 중 선택</h2>
+        <h2 style={{ textAlign: 'center', fontSize: '1.3rem', marginBottom: 24 }}>당신의 운명술사를 선택하세요</h2>
         <div className="mode-grid">
           {MODE_PREVIEW.map((m) => (
             <Card key={m.name}>
