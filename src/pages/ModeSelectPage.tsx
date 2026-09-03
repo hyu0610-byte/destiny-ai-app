@@ -7,6 +7,7 @@ import StepTrack from '../components/ui/StepTrack';
 import { useSajuFlow } from '../context/SajuFlowContext';
 import { generateSajuReading } from '../lib/mockInterpretation';
 import { saveReading } from '../lib/history';
+import { getToken } from '../lib/apiClient';
 import type { SajuMode } from '../lib/types';
 
 const MODES: { id: SajuMode; image: string; name: string; tag: string; desc: string; requiresTime: boolean }[] = [
@@ -34,18 +35,31 @@ export default function ModeSelectPage() {
     setError('');
     setLoadingMode(id);
 
-    window.setTimeout(() => {
+    window.setTimeout(async () => {
+      let reading;
       try {
-        const reading = generateSajuReading(input, id);
-        setMode(id);
-        setReading(reading);
-        saveReading(reading);
-        navigate('/result');
+        reading = generateSajuReading(input, id);
       } catch {
         setError('사주 원국 산출에 실패했어요. 입력한 생년월일시를 다시 확인해 주세요.');
-      } finally {
         setLoadingMode(null);
+        return;
       }
+
+      setMode(id);
+      setReading(reading);
+
+      // 로그인 상태일 때만 서버에 저장을 시도한다. 비로그인 사용자는 결과만 보고
+      // 히스토리에는 남기지 않는다 (히스토리 조회 자체가 로그인 필요 기능).
+      if (getToken()) {
+        try {
+          await saveReading(reading);
+        } catch {
+          // 저장 실패는 결과 확인 자체를 막지 않는다. 히스토리 목록에서 재시도 가능.
+        }
+      }
+
+      setLoadingMode(null);
+      navigate('/result');
     }, 900);
   };
 

@@ -1,27 +1,24 @@
 import type { SajuReading } from './types';
+import { apiRequest } from './apiClient';
 
-const HISTORY_KEY = 'destiny-ai:reading-history';
-const MAX_HISTORY = 20;
-
-export function getHistory(): SajuReading[] {
-  try {
-    const raw = localStorage.getItem(HISTORY_KEY);
-    return raw ? (JSON.parse(raw) as SajuReading[]) : [];
-  } catch {
-    return [];
-  }
+export async function getHistory(): Promise<SajuReading[]> {
+  const data = await apiRequest<{ readings: SajuReading[] }>('/api/readings', { auth: true });
+  return data.readings;
 }
 
-export function saveReading(reading: SajuReading): void {
-  const history = getHistory();
-  const next = [reading, ...history].slice(0, MAX_HISTORY);
-  localStorage.setItem(HISTORY_KEY, JSON.stringify(next));
+export async function saveReading(reading: SajuReading): Promise<SajuReading> {
+  const data = await apiRequest<{ reading: SajuReading }>('/api/readings', {
+    method: 'POST',
+    auth: true,
+    body: reading,
+  });
+  return data.reading;
 }
 
-export function getReadingById(id: string): SajuReading | undefined {
-  return getHistory().find((r) => r.id === id);
+export async function deleteReading(id: string): Promise<void> {
+  await apiRequest<void>(`/api/readings/${id}`, { method: 'DELETE', auth: true });
 }
 
-export function clearHistory(): void {
-  localStorage.removeItem(HISTORY_KEY);
+export async function clearHistory(): Promise<void> {
+  await apiRequest<void>('/api/readings', { method: 'DELETE', auth: true });
 }
