@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
+import { trackEvent } from '../lib/analytics';
 
 const MODE_PREVIEW = [
   { image: '/masters/grandma.jpg', name: '40년 전통 사주', desc: '정통 명리학 해석으로 인생 전체 흐름을 짚어드립니다.' },
@@ -31,7 +32,16 @@ export default function HomePage() {
           <h1 className="hero-headline hero-reveal" style={{ animationDelay: '.28s' }}>
             운명이 당신을<br />이곳으로 이끌었습니다
           </h1>
-          <Button className="hero-reveal" style={{ animationDelay: '.5s' }} onClick={() => navigate('/input')}>운명 확인하기</Button>
+          <Button
+            className="hero-reveal"
+            style={{ animationDelay: '.5s' }}
+            onClick={() => {
+              trackEvent('cta_click', { location: 'hero' });
+              navigate('/input');
+            }}
+          >
+            운명 확인하기
+          </Button>
         </div>
       </section>
 

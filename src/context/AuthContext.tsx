@@ -7,6 +7,7 @@ import {
   logout as logoutUser,
   type AuthUser,
 } from '../lib/auth';
+import { trackEvent, identifyUser, resetUser } from '../lib/analytics';
 
 interface AuthContextValue {
   user: AuthUser | null;
@@ -28,6 +29,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (active) {
         setUser(current);
         setLoading(false);
+        if (current) identifyUser(current.id, { signup_date: current.createdAt });
       }
     });
 
@@ -47,14 +49,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     register: async (email, password) => {
       const next = await registerUser(email, password);
       setUser(next);
+      identifyUser(next.id, { signup_date: next.createdAt });
+      trackEvent('signup_completed');
     },
     login: async (email, password) => {
       const next = await loginUser(email, password);
       setUser(next);
+      identifyUser(next.id, { signup_date: next.createdAt });
+      trackEvent('login_completed');
     },
     logout: () => {
       logoutUser();
       setUser(null);
+      resetUser();
     },
   };
 

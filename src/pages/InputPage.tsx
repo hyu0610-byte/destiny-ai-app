@@ -7,6 +7,7 @@ import StepTrack from '../components/ui/StepTrack';
 import Card from '../components/ui/Card';
 import { useSajuFlow } from '../context/SajuFlowContext';
 import { KOREA_LOCATIONS } from '../lib/locations';
+import { trackEvent } from '../lib/analytics';
 import type { BirthInput } from '../lib/types';
 
 type Errors = Partial<Record<'name' | 'year' | 'month' | 'day' | 'hour' | 'minute', string>>;
@@ -65,6 +66,12 @@ export default function InputPage() {
       locationName: location.name,
       longitude: location.lon,
     };
+
+    trackEvent('saju_input_submitted', {
+      gender,
+      is_lunar: isLunar,
+      time_unknown: timeUnknown,
+    });
 
     setInput(value);
     navigate('/modes');

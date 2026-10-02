@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext';
 import { SajuFlowProvider } from './context/SajuFlowContext';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
+import PageViewTracker from './components/PageViewTracker';
 import HomePage from './pages/HomePage';
 import InputPage from './pages/InputPage';
 import ModeSelectPage from './pages/ModeSelectPage';
@@ -14,6 +15,7 @@ export default function App() {
     <AuthProvider>
       <SajuFlowProvider>
         <BrowserRouter>
+          <PageViewTracker />
           <div className="app-shell">
             <Header />
             <main className="app-main" id="main">

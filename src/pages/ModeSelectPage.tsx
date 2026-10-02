@@ -10,6 +10,7 @@ import { requestAIInterpretation } from '../lib/interpretApi';
 import { saveReading } from '../lib/history';
 import { getToken } from '../lib/apiClient';
 import { ApiRequestError } from '../lib/auth';
+import { trackEvent } from '../lib/analytics';
 import type { SajuMode, SajuReading } from '../lib/types';
 
 const MODES: { id: SajuMode; image: string; name: string; tag: string; desc: string; requiresTime: boolean }[] = [
@@ -39,6 +40,8 @@ export default function ModeSelectPage() {
     setRetryTarget(null);
     setLoadingMode(id);
 
+    trackEvent('mode_selected', { mode: id, time_unknown: input.timeUnknown });
+
     let base;
     try {
       base = calculateSajuBase(input);
@@ -52,11 +55,11 @@ export default function ModeSelectPage() {
     try {
       interpretation = await requestAIInterpretation(input, id, base);
     } catch (err) {
-      setError(
-        err instanceof ApiRequestError
-          ? err.message
-          : 'AI 해석 서버에 연결하지 못했어요. 잠시 후 다시 시도해 주세요.'
-      );
+      const message = err instanceof ApiRequestError
+        ? err.message
+        : 'AI 해석 서버에 연결하지 못했어요. 잠시 후 다시 시도해 주세요.';
+      trackEvent('interpret_failed', { mode: id, error_message: message });
+      setError(message);
       setRetryTarget(id);
       setLoadingMode(null);
       return;
@@ -75,6 +78,8 @@ export default function ModeSelectPage() {
 
     setMode(id);
     setReading(reading);
+
+    trackEvent('result_viewed', { mode: id, dominant_element: base.dominantElement });
 
     // 로그인 상태일 때만 서버에 저장을 시도한다. 비로그인 사용자는 결과만 보고
     // 히스토리에는 남기지 않는다 (히스토리 조회 자체가 로그인 필요 기능).
